@@ -13,3 +13,23 @@ const apiUrls = [
 ];
 
 // You can write your code here
+
+function fetchData(url){
+	return fetch(url).then ((response)=>return response.JSON(););
+}
+
+let promises = [];
+
+promises.push(apiUrls.forEach((url) => {
+	return Promise((resolve,reject) => {
+		resolve(fetchData(url));
+		reject('error');
+	});
+}););
+
+Promise.all(promises).then((event) => {
+	document.getElementById('output-all').innerText = event;
+})
+Promise.any(promises).then((event) => {
+	document.getElementById('output-any').innerText = event;
+})
